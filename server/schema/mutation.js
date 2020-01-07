@@ -1,7 +1,8 @@
 const graphql = require('graphql');
+const UserType = require('./types/user_type');
+const { signup } = require('./../services/auth');
 
 const { GraphQLObjectType, GraphQLString } = graphql;
-const UserType = require('./types/user_type');
 
 const RootMutation = new GraphQLObjectType({
   name: 'RootMutation',
@@ -15,8 +16,8 @@ const RootMutation = new GraphQLObjectType({
         password: { type: GraphQLString }
       },
 
-      resolve: (parentValue, args, request) => {
-        console.log('Args are: ', args);
+      resolve: (_parentValue, { name, email, password }, request) => {
+        return signup({ name, email, password, request });
       }
     }
   }

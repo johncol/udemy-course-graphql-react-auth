@@ -55,8 +55,8 @@ passport.use(
 // Notice the Promise created in the second 'then' statement.  This is done
 // because Passport only supports callbacks, while GraphQL only supports promises
 // for async code!  Awkward!
-function signup({ email, password, req }) {
-  const user = new User({ email, password });
+function signup({ name, email, password, request }) {
+  const user = new User({ name, email, password });
   if (!email || !password) {
     throw new Error('You must provide an email and password.');
   }
@@ -70,7 +70,7 @@ function signup({ email, password, req }) {
     })
     .then(user => {
       return new Promise((resolve, reject) => {
-        req.logIn(user, err => {
+        request.logIn(user, err => {
           if (err) {
             reject(err);
           }
@@ -85,14 +85,14 @@ function signup({ email, password, req }) {
 // function returns a function, as its indended to be used as a middleware with
 // Express.  We have another compatibility layer here to make it work nicely with
 // GraphQL, as GraphQL always expects to see a promise for handling async code.
-function login({ email, password, req }) {
+function login({ email, password, request }) {
   return new Promise((resolve, reject) => {
     passport.authenticate('local', (err, user) => {
       if (!user) {
         reject('Invalid credentials.');
       }
 
-      req.login(user, () => resolve(user));
+      request.login(user, () => resolve(user));
     })({ body: { email, password } });
   });
 }
