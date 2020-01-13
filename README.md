@@ -1,2 +1,3 @@
-# auth-graphql-starter
-Starter project from a GraphQL course on Udemy.com - Section 3!
+# Udemy GraphQL React Auth
+
+Example of a graphql server that handles authentication with passport
