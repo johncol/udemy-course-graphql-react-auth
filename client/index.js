@@ -1,14 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { ApolloProvider } from '@apollo/react-hooks';
+import { InMemoryCache, createHttpLink } from '@apollo/client';
+import ApolloClient from 'apollo-boost';
 
-import { ApolloProvider } from 'react-apollo';
-import { ApolloClient, InMemoryCache, HttpLink } from '@apollo/client';
+import { App } from './components/App';
 
 const cache = new InMemoryCache({
   dataIdFromObject: object => object.id
 });
 
-const link = new HttpLink({
+const link = createHttpLink({
   uri: '/graphql',
   credentials: 'same-origin'
 });
@@ -18,7 +20,9 @@ const client = new ApolloClient({ cache, link });
 const Root = () => {
   return (
     <ApolloProvider client={client}>
-      <div>Auth Starter</div>;
+      <App>
+        <div>App</div>
+      </App>
     </ApolloProvider>
   );
 };
