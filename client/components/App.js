@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
 
 import { Query } from './../graphql/queries';
@@ -10,20 +11,28 @@ export const App = ({ children }) => {
   }
 
   const { currentUser } = data;
-
-  if (!currentUser) {
-    return (
-      <div className="container">
-        <header>Login/Signup</header>
-        <main>{children}</main>
-      </div>
-    );
-  }
+  const links = getLinks(currentUser);
 
   return (
-    <div className="container">
-      <header>Logout</header>
+    <div>
+      <header>
+        <nav>
+          <ul>
+            {links.map((link, i) => (
+              <li key={i}>{link}</li>
+            ))}
+          </ul>
+        </nav>
+      </header>
       <main>{children}</main>
     </div>
   );
+};
+
+const getLinks = currentUser => {
+  if (currentUser) {
+    return [<a>Logout</a>];
+  }
+
+  return [<Link to="/login">Login</Link>, <Link to="/signup">Signup</Link>];
 };
