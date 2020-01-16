@@ -6,7 +6,6 @@ import { ApolloProvider } from '@apollo/react-hooks';
 import { client } from './graphql';
 
 import { App } from './components/App';
-import { Welcome } from './components/Welcome';
 
 const Root = () => {
   return (
@@ -14,9 +13,7 @@ const Root = () => {
       <BrowserRouter>
         <Route path="/">
           <div className="container">
-            <App>
-              <Welcome />
-            </App>
+            <App></App>
           </div>
         </Route>
       </BrowserRouter>

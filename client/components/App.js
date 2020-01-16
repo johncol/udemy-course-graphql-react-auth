@@ -1,17 +1,22 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery, useMutation } from '@apollo/react-hooks';
 
-import { Query } from './../graphql/queries';
+import { Query, Mutation } from './../graphql';
 
 export const App = ({ children }) => {
   const { data, loading } = useQuery(Query.currentUser);
+
+  const [logout] = useMutation(Mutation.logout, {
+    refetchQueries: [{ query: Query.currentUser }]
+  });
+
   if (loading) {
     return null;
   }
 
   const { currentUser } = data;
-  const links = getLinks(currentUser);
+  const links = getLinks(currentUser, logout);
 
   return (
     <div>
@@ -24,14 +29,17 @@ export const App = ({ children }) => {
           </ul>
         </nav>
       </header>
-      <main>{children}</main>
+      <main>
+        <h2>Welcome {currentUser ? currentUser.name : 'visitor'}</h2>
+        <React.Fragment>{children}</React.Fragment>
+      </main>
     </div>
   );
 };
 
-const getLinks = currentUser => {
+const getLinks = (currentUser, logout) => {
   if (currentUser) {
-    return [<a>Logout</a>];
+    return [<a onClick={logout}>Logout</a>];
   }
 
   return [<Link to="/login">Login</Link>, <Link to="/signup">Signup</Link>];
