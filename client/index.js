@@ -21,4 +21,5 @@ const Root = () => {
   );
 };
 
-ReactDOM.render(<Root />, document.querySelector('#root'));
+const container = document.querySelector('#root');
+ReactDOM.render(<Root />, container);
