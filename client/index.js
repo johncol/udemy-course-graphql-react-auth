@@ -4,7 +4,6 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import { ApolloProvider } from '@apollo/react-hooks';
 
 import { client } from './graphql';
-
 import { App } from './components/App';
 
 const Root = () => {
