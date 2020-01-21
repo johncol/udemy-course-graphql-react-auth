@@ -17,12 +17,10 @@ export const AuthForm = ({ title, onSubmit }) => {
       <form onSubmit={handleSubmit} className="col s4">
         <h3>{title}</h3>
         <div className="input-field">
-          <label htmlFor="email">Email</label>
-          <input id="email" value={email} onChange={updateEmail} />
+          <input id="email" value={email} onChange={updateEmail} placeholder="Email" />
         </div>
         <div className="input-field">
-          <label htmlFor="password">Password</label>
-          <input type="password" id="password" value={password} onChange={updatePassword} />
+          <input type="password" id="password" value={password} onChange={updatePassword} placeholder="Password" />
         </div>
         <button className="btn">Submit</button>
       </form>
