@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export const AuthForm = ({ title, onSubmit }) => {
+export const AuthForm = ({ title, onSubmit, errors }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -14,6 +14,7 @@ export const AuthForm = ({ title, onSubmit }) => {
 
   return (
     <div className="row auth-form">
+      <FormErrors errors={errors} />
       <form onSubmit={handleSubmit} className="col s4">
         <h3>{title}</h3>
         <div className="input-field">
@@ -24,6 +25,20 @@ export const AuthForm = ({ title, onSubmit }) => {
         </div>
         <button className="btn">Submit</button>
       </form>
+    </div>
+  );
+};
+
+const FormErrors = ({ errors }) => {
+  if (errors.length === 0) {
+    return null;
+  }
+
+  return (
+    <div className="errors">
+      {errors.map(error => (
+        <div key={error}>{error}</div>
+      ))}
     </div>
   );
 };
