@@ -6,6 +6,7 @@ import { ApolloProvider } from '@apollo/react-hooks';
 import { client } from './graphql';
 import { App } from './components/App';
 import { LoginForm } from './components/LoginForm';
+import { SignupForm } from './components/SignupForm';
 
 const Root = () => {
   return (
@@ -14,6 +15,10 @@ const Root = () => {
         <App>
           <Route path="/login">
             <LoginForm />
+          </Route>
+
+          <Route path="/signup">
+            <SignupForm />
           </Route>
         </App>
       </HashRouter>
