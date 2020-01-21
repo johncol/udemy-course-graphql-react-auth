@@ -19,7 +19,7 @@ export const App = ({ children }) => {
   const links = getLinks(currentUser, logout);
 
   return (
-    <div>
+    <div className="container">
       <header>
         <nav>
           <ul>
@@ -30,7 +30,6 @@ export const App = ({ children }) => {
         </nav>
       </header>
       <main>
-        <h2>Welcome {currentUser ? currentUser.name : 'visitor'}</h2>
         <React.Fragment>{children}</React.Fragment>
       </main>
     </div>
