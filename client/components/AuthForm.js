@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
 
-export const AuthForm = ({ title, onSubmit, errors }) => {
+import { Query } from './../graphql';
+import { forNotLoggedUsers } from './auth/forNotLoggedUsers';
+
+export const AuthForm = forNotLoggedUsers(({ title, onSubmitMutation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errors, setErrors] = useState([]);
 
   useEffect(() => {
     if (password && errors.length > 0) {
@@ -12,7 +16,17 @@ export const AuthForm = ({ title, onSubmit, errors }) => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    onSubmit({ email, password });
+    onSubmitMutation({
+      variables: { email, password },
+      refetchQueries: [{ query: Query.currentUser }]
+    })
+      .then(() => {
+        setErrors([]);
+      })
+      .catch(error => {
+        const { graphQLErrors } = error;
+        setErrors(graphQLErrors.map(error => error.message));
+      });
   };
 
   const updateEmail = event => setEmail(event.target.value);
@@ -33,7 +47,7 @@ export const AuthForm = ({ title, onSubmit, errors }) => {
       </form>
     </div>
   );
-};
+});
 
 const FormErrors = ({ errors }) => {
   if (errors.length === 0) {
