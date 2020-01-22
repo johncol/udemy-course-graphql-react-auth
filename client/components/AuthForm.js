@@ -1,8 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export const AuthForm = ({ title, onSubmit, errors }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  useEffect(() => {
+    if (password && errors.length > 0) {
+      setPassword('');
+    }
+  }, [errors]);
 
   const handleSubmit = event => {
     event.preventDefault();
