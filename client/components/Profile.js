@@ -1,23 +1,9 @@
 import React from 'react';
-import { Redirect } from 'react-router';
-import { useQuery } from '@apollo/react-hooks';
 
-import { Query } from './../graphql';
+import { forLoggedUsers } from './auth/forLoggedUsers';
 
-export const Profile = ({}) => {
-  const { data, loading } = useQuery(Query.currentUser);
-
-  if (loading) {
-    return null;
-  }
-
-  if (!data.currentUser) {
-    return <Redirect to="login" />;
-  }
-
-  const {
-    currentUser: { id, name, email }
-  } = data;
+export const Profile = forLoggedUsers(({ currentUser }) => {
+  const { id, name, email } = currentUser;
   return (
     <div className="row">
       <div className="col s12 m12">
@@ -41,4 +27,4 @@ export const Profile = ({}) => {
       </div>
     </div>
   );
-};
+});

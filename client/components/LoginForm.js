@@ -1,23 +1,13 @@
 import React, { useState } from 'react';
-import { Redirect } from 'react-router';
-import { useMutation, useQuery } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/react-hooks';
 
 import { Mutation, Query } from './../graphql';
 import { AuthForm } from './AuthForm';
+import { forNotLoggedUsers } from './auth/forNotLoggedUsers';
 
-export const LoginForm = () => {
+export const LoginForm = forNotLoggedUsers(() => {
   const [errors, setErrors] = useState([]);
-  const [logged, setLogged] = useState(false);
-  const { data, loading } = useQuery(Query.currentUser);
   const [loginMutation] = useMutation(Mutation.login);
-
-  if (loading) {
-    return null;
-  }
-
-  if (data.currentUser || logged) {
-    return <Redirect to="profile" />;
-  }
 
   const login = credentials => {
     loginMutation({
@@ -25,7 +15,6 @@ export const LoginForm = () => {
       refetchQueries: [{ query: Query.currentUser }]
     })
       .then(() => {
-        setLogged(true);
         setErrors([]);
       })
       .catch(error => {
@@ -35,4 +24,4 @@ export const LoginForm = () => {
   };
 
   return <AuthForm title="Login" onSubmit={login} errors={errors}></AuthForm>;
-};
+});
