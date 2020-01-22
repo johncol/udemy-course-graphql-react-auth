@@ -7,6 +7,7 @@ import { client } from './graphql';
 import { App } from './components/App';
 import { LoginForm } from './components/LoginForm';
 import { SignupForm } from './components/SignupForm';
+import { Profile } from './components/Profile';
 
 const Root = () => {
   return (
@@ -19,6 +20,10 @@ const Root = () => {
 
           <Route path="/signup">
             <SignupForm />
+          </Route>
+
+          <Route path="/profile">
+            <Profile />
           </Route>
         </App>
       </HashRouter>
