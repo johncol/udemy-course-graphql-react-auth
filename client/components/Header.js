@@ -21,15 +21,13 @@ export const Header = () => {
   return (
     <header>
       <nav>
-        <ul>
-          {links.map((link, i) => (
-            <li key={i}>{link}</li>
-          ))}
-        </ul>
+        <ul>{links.map(toListItems)}</ul>
       </nav>
     </header>
   );
 };
+
+const toListItems = (link, index) => <li key={index}>{link}</li>;
 
 const getLinks = (currentUser, logout) => {
   if (currentUser) {
