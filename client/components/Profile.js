@@ -9,7 +9,7 @@ export const Profile = forLoggedUsers(({ currentUser }) => {
       <div className="col s12 m12">
         <div className="card blue-grey darken-1">
           <div className="card-content white-text">
-            <span className="card-title">Welcome {name ? name : 'Unnamed dude'}!</span>
+            <Title name={name} />
             <table>
               <tbody>
                 <tr>
@@ -28,3 +28,7 @@ export const Profile = forLoggedUsers(({ currentUser }) => {
     </div>
   );
 });
+
+const Title = ({ name }) => {
+  return <span className="card-title">Welcome {name ? name : 'Unnamed dude'}!</span>;
+};
