@@ -21,6 +21,21 @@ const RootMutation = new GraphQLObjectType({
       }
     },
 
+    updateUser: {
+      type: UserType,
+
+      args: {
+        name: { type: GraphQLString },
+        email: { type: GraphQLString }
+      },
+
+      resolve: (_parentValue, { name, email }, _request) => {
+        console.log(`TODO: User's name should be updated to ${name}`);
+
+        return { name, email };
+      }
+    },
+
     login: {
       type: UserType,
       args: {
