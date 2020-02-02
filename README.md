@@ -7,3 +7,8 @@ Example of a graphql server that handles authentication with passport
 ```
 yarn start
 ```
+
+# Dependencies
+
+It needs a Mongo DB instance running that you should configure in `server/index.js`
+
