@@ -5,6 +5,8 @@ const session = require('express-session');
 const passport = require('passport');
 const MongoStore = require('connect-mongo')(session);
 const schema = require('./schema/schema');
+const models = require('./models');
+const passportConfig = require('./services/auth');
 
 // Create a new Express application
 const app = express();
