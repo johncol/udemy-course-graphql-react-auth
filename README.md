@@ -1,5 +1,7 @@
 # Udemy GraphQL React Auth
 
+Work in progress.
+
 Example of a graphql server that handles authentication with passport
 
 # Run
