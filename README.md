@@ -4,6 +4,12 @@ Work in progress.
 
 Example of a graphql server that handles authentication with passport
 
+# Deps
+
+```
+yarn install
+```
+
 # Run
 
 ```
